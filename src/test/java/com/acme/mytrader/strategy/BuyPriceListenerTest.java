@@ -7,14 +7,20 @@ import static org.mockito.Mockito.verify;
 import com.acme.mytrader.execution.ExecutionService;
 import com.acme.mytrader.price.BuyPriceListener;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class BuyPriceListenerTest {
+
+    @Mock
+    ExecutionService executionService;
 
     @Test
     public void testInitializeStateForBuyPriceListener() {
-        ExecutionService executionService = Mockito.mock(ExecutionService.class);
 
         BuyPriceListener buyPriceListener = new BuyPriceListener("IBM", 50.00, 100, executionService,
                 false);
@@ -27,7 +33,7 @@ public class BuyPriceListenerTest {
 
     @Test
     public void testBuy_whenThresholdIsMet() {
-        ExecutionService executionService = Mockito.mock(ExecutionService.class);
+
         ArgumentCaptor<String> acString = ArgumentCaptor.forClass(String.class);
         ArgumentCaptor<Double> acDouble = ArgumentCaptor.forClass(Double.class);
         ArgumentCaptor<Integer> acInteger = ArgumentCaptor.forClass(Integer.class);
@@ -66,7 +72,7 @@ public class BuyPriceListenerTest {
 
     @Test
     public void testShouldNotBuy_whenSecurityIsDifferent() {
-        ExecutionService executionService = Mockito.mock(ExecutionService.class);
+
         ArgumentCaptor<String> acString = ArgumentCaptor.forClass(String.class);
         ArgumentCaptor<Double> acDouble = ArgumentCaptor.forClass(Double.class);
         ArgumentCaptor<Integer> acInteger = ArgumentCaptor.forClass(Integer.class);
@@ -83,7 +89,7 @@ public class BuyPriceListenerTest {
 
     @Test
     public void testGivenSeveralPriceUpdates_whenTradeIsAlreadyExecucted_shouldBuyOnlyOnce() {
-        ExecutionService executionService = Mockito.mock(ExecutionService.class);
+
         ArgumentCaptor<String> acString = ArgumentCaptor.forClass(String.class);
         ArgumentCaptor<Double> acDouble = ArgumentCaptor.forClass(Double.class);
         ArgumentCaptor<Integer> acInteger = ArgumentCaptor.forClass(Integer.class);
